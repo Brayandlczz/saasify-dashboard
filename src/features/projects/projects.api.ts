@@ -20,3 +20,13 @@ export async function createProject(
 
   return response.data;
 }
+
+export async function rotateProjectApiKey(projectId: string): Promise<Project> {
+  const apiKey = `pk_live_${crypto.randomUUID().replaceAll("-", "")}`;
+
+  const response = await apiClient.patch<Project>(`/projects/${projectId}`, {
+    apiKey,
+  });
+
+  return response.data;
+}

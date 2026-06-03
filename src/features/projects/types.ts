@@ -7,6 +7,7 @@ export type Project = {
   ownerId: string;
   status: ProjectStatus;
   createdAt: string;
+  apiKey?: string;
   settings?: Record<string, unknown>;
 };
 

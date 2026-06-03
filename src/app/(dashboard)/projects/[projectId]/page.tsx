@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { PlanCard } from "@/features/plans/components/plan-card";
 import { getPlansByProjectId } from "@/features/plans/plans.api";
 import { getProjectById } from "@/features/projects/projects.api";
+import { RotateApiKeyForm } from "@/features/projects/components/rotate-api-key-form";
 import Link from "next/link";
 
 type ProjectDetailPageProps = {
@@ -59,6 +60,21 @@ export default async function ProjectDetailPage({
             <p className="mt-2 break-all text-sm font-semibold text-zinc-950">
               {project!.id}
             </p>
+          </div>
+        </div>
+
+        <div className="mt-6 rounded-xl border border-zinc-200 bg-white p-5 shadow-sm">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <h2 className="text-lg font-semibold text-zinc-950">API key</h2>
+              <p className="mt-1 text-sm text-zinc-600">
+                Rotate the project API key used by external backends.
+              </p>
+              <p className="mt-4 break-all rounded-lg bg-zinc-50 px-3 py-2 text-sm text-zinc-700">
+                {project!.apiKey ?? "No API key generated yet"}
+              </p>
+            </div>
+            <RotateApiKeyForm projectId={project!.id} />
           </div>
         </div>
 
