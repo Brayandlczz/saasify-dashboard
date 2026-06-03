@@ -2,11 +2,14 @@ import { InputHTMLAttributes } from "react";
 
 type InputProps = InputHTMLAttributes<HTMLInputElement>;
 
-export function Input(props: InputProps) {
+export function Input({
+  className = "",
+  ...props
+}: InputProps) {
   return (
     <input
       {...props}
-      className="
+      className={`
         mt-2
         w-full
         rounded-lg
@@ -18,7 +21,8 @@ export function Input(props: InputProps) {
         outline-none
         transition-colors
         focus:border-zinc-950
-      "
+        ${className}
+      `}
     />
   );
 }
