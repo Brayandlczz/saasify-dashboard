@@ -5,12 +5,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Input } from "@/components/ui/input";
 
+import { useRouter } from "next/navigation";
+import { login } from "../auth.api";
+import { useAuth } from "../context/auth-context";
+
 import {
   loginSchema,
   type LoginFormValues,
 } from "../auth.schema";
 
+
 export function LoginForm() {
+
+  const router = useRouter();
+  const auth = useAuth();
+  
   const {
     register,
     handleSubmit,
@@ -20,7 +29,15 @@ export function LoginForm() {
   });
 
   async function onSubmit(data: LoginFormValues) {
-    console.log(data);
+    try {
+      const response = await login(data);
+
+      auth.login(response.user);
+
+      router.push("/dashboard");
+    } catch {
+      alert("Invalid credentials");
+    }
   }
 
   return (

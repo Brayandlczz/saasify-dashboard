@@ -1,3 +1,5 @@
+import { LogoutButton } from "@/features/auth/components/logout-button";
+
 export function DashboardHeader() {
   return (
     <header className="border-b border-zinc-200 bg-white">
@@ -7,10 +9,8 @@ export function DashboardHeader() {
           <p className="text-xs text-zinc-500">Developer Dashboard</p>
         </div>
 
-        <nav className="flex items-center gap-4 text-sm text-zinc-600">
-          <a className="font-medium text-zinc-950" href="/dashboard">
-            Projects
-          </a>
+        <nav className="flex items-center gap-4">
+          <LogoutButton />
         </nav>
       </div>
     </header>
