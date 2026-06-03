@@ -16,3 +16,12 @@ export async function createPlan(payload: CreatePlanPayload): Promise<Plan> {
 
   return response.data;
 }
+
+export async function deactivatePlan(planId: string): Promise<Plan> {
+  const response = await apiClient.patch<Plan>(`/plans/${planId}`, {
+    isActive: false,
+    isPublic: false,
+  });
+
+  return response.data;
+}

@@ -3,8 +3,8 @@
 import {
   createContext,
   useContext,
-  useEffect,
   useState,
+  useEffect,
   type ReactNode,
 } from "react";
 
@@ -29,11 +29,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem(AUTH_USER_KEY);
+    const stored = localStorage.getItem(AUTH_USER_KEY);
 
-    if (storedUser) {
+    if (stored) {
       try {
-        setUser(JSON.parse(storedUser));
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setUser(JSON.parse(stored));
       } catch {
         localStorage.removeItem(AUTH_USER_KEY);
       }

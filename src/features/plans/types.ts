@@ -9,6 +9,7 @@ export type Plan = {
   currency: string;
   billingCycle: BillingCycle;
   isPublic: boolean;
+  isActive?: boolean;
   createdAt: string;
 };
 
