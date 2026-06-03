@@ -3,16 +3,17 @@
 import {
   createContext,
   useContext,
+  useEffect,
   useState,
   type ReactNode,
 } from "react";
 
-import type { User } from "../types";
-
 import { AUTH_USER_KEY } from "../constants";
+import type { User } from "../types";
 
 type AuthContextValue = {
   user: User | null;
+  isLoading: boolean;
   login: (user: User) => void;
   logout: () => void;
 };
@@ -23,17 +24,23 @@ type AuthProviderProps = {
   children: ReactNode;
 };
 
-function getInitialUser(): User | null {
-  try {
-    const stored = localStorage.getItem(AUTH_USER_KEY);
-    return stored ? JSON.parse(stored) : null;
-  } catch {
-    return null;
-  }
-}
-
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<User | null>(getInitialUser);
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem(AUTH_USER_KEY);
+
+    if (storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch {
+        localStorage.removeItem(AUTH_USER_KEY);
+      }
+    }
+
+    setIsLoading(false);
+  }, []);
 
   function login(user: User) {
     localStorage.setItem(AUTH_USER_KEY, JSON.stringify(user));
@@ -46,7 +53,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, isLoading, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
