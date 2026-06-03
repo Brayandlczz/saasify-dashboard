@@ -29,6 +29,11 @@
       "status": "active",
       "createdAt": "2026-06-01T14:20:00Z",
       "settings": {}
+    },
+    {
+      "name": "Zenvy",
+      "slug": "try to create a project",
+      "id": "iWvY4ZY"
     }
   ],
   "plans": [
