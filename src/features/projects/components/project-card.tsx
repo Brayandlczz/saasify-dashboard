@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import type { Project } from "@/features/projects/types";
 
 type ProjectCardProps = {
@@ -24,6 +26,13 @@ export function ProjectCard({ project }: ProjectCardProps) {
       <p className="mt-4 text-xs text-zinc-400">
         Created at {new Date(project.createdAt).toLocaleDateString()}
       </p>
+
+      <Link
+        href={`/projects/${project.id}`}
+        className="mt-4 inline-flex text-sm font-medium text-zinc-950 hover:underline"
+      >
+        View project
+      </Link>
     </article>
   );
 }
