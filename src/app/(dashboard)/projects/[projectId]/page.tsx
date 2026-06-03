@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { PlanCard } from "@/features/plans/components/plan-card";
 import { getPlansByProjectId } from "@/features/plans/plans.api";
 import { getProjectById } from "@/features/projects/projects.api";
+import Link from "next/link";
 
 type ProjectDetailPageProps = {
   params: Promise<{
@@ -62,11 +63,19 @@ export default async function ProjectDetailPage({
         </div>
 
         <div className="mt-10">
-          <div className="mb-4">
-            <h2 className="text-xl font-semibold text-zinc-950">Plans</h2>
-            <p className="mt-1 text-sm text-zinc-600">
-              Subscription plans configured for this project.
-            </p>
+          <div className="mb-4 flex items-start justify-between gap-4">
+            <div>
+              <h2 className="text-xl font-semibold text-zinc-950">Plans</h2>
+              <p className="mt-1 text-sm text-zinc-600">
+                Subscription plans configured for this project.
+              </p>
+            </div>
+            <Link
+              href={`/projects/${project!.id}/plans/new`}
+              className="rounded-lg bg-zinc-950 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800"
+            >
+              New plan
+            </Link>
           </div>
 
           {plans!.length > 0 ? (
