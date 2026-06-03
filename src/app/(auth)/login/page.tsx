@@ -1,4 +1,5 @@
 import { LoginForm } from "@/features/auth/components/login-form";
+import Link from "next/link";
 
 export default function LoginPage() {
   return (
@@ -15,6 +16,13 @@ export default function LoginPage() {
         </div>
 
         <LoginForm />
+
+        <p className="mt-6 text-center text-sm text-zinc-600">
+          Don&apos;t have an account?{" "}
+          <Link href="/register" className="font-medium text-zinc-950 underline">
+            Create account
+          </Link>
+        </p>
       </div>
     </main>
   );
