@@ -1,0 +1,122 @@
+{
+  "users": [
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440000",
+      "email": "dev@example.com",
+      "password": "Password123!",
+      "name": "Desarrollador Test",
+      "createdAt": "2026-06-02T10:00:00Z"
+    }
+  ],
+  "projects": [
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440001",
+      "name": "E-Commerce Platform",
+      "slug": "ecommerce-platform",
+      "ownerId": "550e8400-e29b-41d4-a716-446655440000",
+      "status": "active",
+      "createdAt": "2026-06-02T10:05:00Z",
+      "settings": {
+        "webhookUrl": "https://example.com/webhooks",
+        "supportEmail": "support@example.com"
+      }
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440002",
+      "name": "SaaS Analytics",
+      "slug": "saas-analytics",
+      "ownerId": "550e8400-e29b-41d4-a716-446655440000",
+      "status": "active",
+      "createdAt": "2026-06-01T14:20:00Z",
+      "settings": {}
+    }
+  ],
+  "plans": [
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440010",
+      "projectId": "550e8400-e29b-41d4-a716-446655440001",
+      "name": "Plan Free",
+      "slug": "free",
+      "price": 0,
+      "currency": "USD",
+      "billingCycle": "MONTHLY",
+      "isPublic": true,
+      "createdAt": "2026-06-02T10:10:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440011",
+      "projectId": "550e8400-e29b-41d4-a716-446655440001",
+      "name": "Plan Pro",
+      "slug": "pro",
+      "price": 29.99,
+      "currency": "USD",
+      "billingCycle": "MONTHLY",
+      "isPublic": true,
+      "createdAt": "2026-06-02T10:12:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440012",
+      "projectId": "550e8400-e29b-41d4-a716-446655440001",
+      "name": "Plan Enterprise",
+      "slug": "enterprise",
+      "price": 199.99,
+      "currency": "USD",
+      "billingCycle": "ANNUAL",
+      "isPublic": false,
+      "createdAt": "2026-06-02T10:13:00Z"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440013",
+      "projectId": "550e8400-e29b-41d4-a716-446655440002",
+      "name": "Starter",
+      "slug": "starter",
+      "price": 19.99,
+      "currency": "USD",
+      "billingCycle": "MONTHLY",
+      "isPublic": true,
+      "createdAt": "2026-06-01T15:00:00Z"
+    }
+  ],
+  "customers": [
+    {
+      "id": "cust_550e8400-e29b-41d4-a716-446655440100",
+      "projectId": "550e8400-e29b-41d4-a716-446655440001",
+      "externalId": "customer_001",
+      "name": "Acme Corp",
+      "email": "billing@acmecorp.com",
+      "createdAt": "2026-06-01T09:00:00Z"
+    },
+    {
+      "id": "cust_550e8400-e29b-41d4-a716-446655440101",
+      "projectId": "550e8400-e29b-41d4-a716-446655440001",
+      "externalId": "customer_002",
+      "name": "Beta Inc",
+      "email": "admin@betainc.com",
+      "createdAt": "2026-05-28T14:30:00Z"
+    }
+  ],
+  "subscriptions": [
+    {
+      "id": "sub_550e8400-e29b-41d4-a716-446655440200",
+      "customerId": "cust_550e8400-e29b-41d4-a716-446655440100",
+      "projectId": "550e8400-e29b-41d4-a716-446655440001",
+      "planId": "550e8400-e29b-41d4-a716-446655440011",
+      "status": "active",
+      "currentPeriodStart": "2026-06-01T09:00:00Z",
+      "currentPeriodEnd": "2026-07-01T09:00:00Z",
+      "renewsAt": "2026-07-01T09:00:00Z",
+      "createdAt": "2026-06-01T09:00:00Z"
+    },
+    {
+      "id": "sub_550e8400-e29b-41d4-a716-446655440201",
+      "customerId": "cust_550e8400-e29b-41d4-a716-446655440101",
+      "projectId": "550e8400-e29b-41d4-a716-446655440001",
+      "planId": "550e8400-e29b-41d4-a716-446655440010",
+      "status": "active",
+      "currentPeriodStart": "2026-05-28T14:30:00Z",
+      "currentPeriodEnd": "2026-06-28T14:30:00Z",
+      "renewsAt": "2026-06-28T14:30:00Z",
+      "createdAt": "2026-05-28T14:30:00Z"
+    }
+  ]
+}
