@@ -4,12 +4,13 @@ import type {
   AuthResponse,
   LoginPayload,
   RegisterPayload,
+  User,
 } from "./types";
 
 export async function login(
   payload: LoginPayload
 ): Promise<AuthResponse> {
-  const response = await apiClient.get("/users");
+  const response = await apiClient.get<User[]>("/users");
 
   const user = response.data.find(
     (candidate: { email: string; password: string }) =>
