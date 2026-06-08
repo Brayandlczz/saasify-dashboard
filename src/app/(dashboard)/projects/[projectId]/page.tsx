@@ -2,6 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { Card, EmptyState, PageHeader } from "@/components/ui";
+import { CustomerCard } from "@/features/customers/components/customer-card";
+import { getCustomersByProjectId } from "@/features/customers/customers.api";
 import { PlanCard } from "@/features/plans/components/plan-card";
 import { getPlansByProjectId } from "@/features/plans/plans.api";
 import { RotateApiKeyForm } from "@/features/projects/components/rotate-api-key-form";
@@ -20,11 +22,13 @@ export default async function ProjectDetailPage({
 
   let project!: Awaited<ReturnType<typeof getProjectById>>;
   let plans!: Awaited<ReturnType<typeof getPlansByProjectId>>;
+  let customers!: Awaited<ReturnType<typeof getCustomersByProjectId>>;
 
   try {
-    [project, plans] = await Promise.all([
+    [project, plans, customers] = await Promise.all([
       getProjectById(projectId),
       getPlansByProjectId(projectId),
+      getCustomersByProjectId(projectId),
     ]);
   } catch {
     notFound();
@@ -108,6 +112,28 @@ export default async function ProjectDetailPage({
             <EmptyState
               title="No plans yet"
               description="Create your first subscription plan for this project."
+            />
+          )}
+        </div>
+
+        <div className="mt-10">
+          <div className="mb-4">
+            <h2 className="text-xl font-semibold text-zinc-950">Customers</h2>
+            <p className="mt-1 text-sm text-zinc-600">
+              Customers registered through the developer API.
+            </p>
+          </div>
+
+          {customers.length > 0 ? (
+            <div className="grid gap-4 md:grid-cols-2">
+              {customers.map((customer) => (
+                <CustomerCard key={customer.id} customer={customer} />
+              ))}
+            </div>
+          ) : (
+            <EmptyState
+              title="No customers yet"
+              description="Customers are created programmatically through the SaaSify API."
             />
           )}
         </div>
