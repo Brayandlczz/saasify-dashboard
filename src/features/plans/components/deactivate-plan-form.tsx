@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { deactivatePlanAction } from "@/features/plans/actions";
 
 type DeactivatePlanFormProps = {
@@ -14,12 +15,12 @@ export function DeactivatePlanForm({
       <input type="hidden" name="projectId" value={projectId} />
       <input type="hidden" name="planId" value={planId} />
 
-      <button
+      <Button
         type="submit"
-        className="text-sm font-medium text-red-600 hover:text-red-700"
+        variant="danger"
       >
         Deactivate
-      </button>
+      </Button>
     </form>
   );
 }

@@ -1,34 +1,34 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-
-import { Input } from "@/components/ui/input";
-
+import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+
+import { FormError } from "@/components/feedback";
+import { Button, Input } from "@/components/ui";
+
 import { login } from "../auth.api";
+import { loginSchema, type LoginFormValues } from "../auth.schema";
 import { useAuth } from "../context/auth-context";
 
-import {
-  loginSchema,
-  type LoginFormValues,
-} from "../auth.schema";
-
-
 export function LoginForm() {
-
   const router = useRouter();
   const auth = useAuth();
-  
+
+  const [error, setError] = useState<string>();
+
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
   });
 
   async function onSubmit(data: LoginFormValues) {
+    setError(undefined);
+
     try {
       const response = await login(data);
 
@@ -36,7 +36,7 @@ export function LoginForm() {
 
       router.push("/dashboard");
     } catch {
-      alert("Invalid credentials");
+      setError("Invalid email or password.");
     }
   }
 
@@ -81,22 +81,15 @@ export function LoginForm() {
           )}
         </div>
 
-        <button
+        <FormError message={error} />
+
+        <Button
           type="submit"
-          className="
-            w-full
-            rounded-lg
-            bg-zinc-950
-            px-4
-            py-2
-            text-sm
-            font-medium
-            text-white
-            hover:bg-zinc-800
-          "
+          disabled={isSubmitting}
+          className="w-full"
         >
-          Login
-        </button>
+          {isSubmitting ? "Signing in..." : "Login"}
+        </Button>
       </div>
     </form>
   );

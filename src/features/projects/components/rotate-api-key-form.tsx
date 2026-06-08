@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { rotateProjectApiKeyAction } from "@/features/projects/actions";
 
 type RotateApiKeyFormProps = {
@@ -9,12 +10,12 @@ export function RotateApiKeyForm({ projectId }: RotateApiKeyFormProps) {
     <form action={rotateProjectApiKeyAction}>
       <input type="hidden" name="projectId" value={projectId} />
 
-      <button
+      <Button
         type="submit"
-        className="rounded-lg border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-950 hover:bg-zinc-100"
+        variant="secondary"
       >
         Rotate API key
-      </button>
+      </Button>
     </form>
   );
 }

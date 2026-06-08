@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { createProjectAction } from "@/features/projects/actions";
 
 export function CreateProjectForm() {
@@ -41,12 +42,9 @@ export function CreateProjectForm() {
           />
         </div>
 
-        <button
-          type="submit"
-          className="rounded-lg bg-zinc-950 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800"
-        >
+        <Button type="submit">
           Create project
-        </button>
+        </Button>
       </div>
     </form>
   );
