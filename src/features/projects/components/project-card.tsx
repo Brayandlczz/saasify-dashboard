@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { Badge, Card } from "@/components/ui";
 import type { Project } from "@/features/projects/types";
 
 type ProjectCardProps = {
@@ -8,19 +9,16 @@ type ProjectCardProps = {
 
 export function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <article className="rounded-xl border border-zinc-200 bg-white p-5 shadow-sm">
+    <Card>
       <div className="flex items-start justify-between gap-4">
         <div>
           <h2 className="text-lg font-semibold text-zinc-900">
             {project.name}
           </h2>
-
           <p className="mt-1 text-sm text-zinc-500">{project.slug}</p>
         </div>
 
-        <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700">
-          {project.status}
-        </span>
+        <Badge variant="success">{project.status}</Badge>
       </div>
 
       <p className="mt-4 text-xs text-zinc-400">
@@ -33,6 +31,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
       >
         View project
       </Link>
-    </article>
+    </Card>
   );
 }
