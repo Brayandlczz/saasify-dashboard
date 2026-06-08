@@ -1,3 +1,4 @@
+import { PageHeader } from "@/components/ui";
 import { CreatePlanForm } from "@/features/plans/components/create-plan-form";
 
 type NewPlanPageProps = {
@@ -13,13 +14,11 @@ export default async function NewPlanPage({ params }: NewPlanPageProps) {
     <main className="px-6 py-8">
       <section className="mx-auto max-w-2xl">
         <div className="mb-8">
-          <p className="text-sm font-medium text-zinc-500">Plans</p>
-          <h1 className="mt-1 text-3xl font-bold tracking-tight text-zinc-950">
-            Create plan
-          </h1>
-          <p className="mt-2 text-sm text-zinc-600">
-            Define a subscription plan for this project.
-          </p>
+          <PageHeader
+            eyebrow="Plans"
+            title="Create plan"
+            description="Define a subscription plan for this project."
+          />
         </div>
 
         <CreatePlanForm projectId={projectId} />
