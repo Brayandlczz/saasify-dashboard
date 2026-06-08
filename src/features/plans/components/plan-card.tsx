@@ -16,11 +16,13 @@ export function PlanCard({ plan }: PlanCardProps) {
   }).format(plan.price);
 
   return (
-    <Card>
+    <Card className="flex flex-col gap-4">
       <div className="flex items-start justify-between gap-4">
-        <div>
-          <h3 className="text-lg font-semibold text-zinc-950">{plan.name}</h3>
-          <p className="mt-1 text-sm text-zinc-500">{plan.slug}</p>
+        <div className="min-w-0">
+          <h3 className="truncate text-base font-semibold text-zinc-950">
+            {plan.name}
+          </h3>
+          <p className="mt-0.5 truncate text-xs text-zinc-400">{plan.slug}</p>
         </div>
 
         <Badge variant={isActive ? "neutral" : "danger"}>
@@ -28,16 +30,20 @@ export function PlanCard({ plan }: PlanCardProps) {
         </Badge>
       </div>
 
-      <p className="mt-5 text-2xl font-bold text-zinc-950">
-        {formattedPrice}
-      </p>
+      <div className="h-px bg-zinc-100" />
 
-      <p className="mt-1 text-sm text-zinc-500">{plan.billingCycle}</p>
+      <div>
+        <p className="text-2xl font-bold text-zinc-950">{formattedPrice}</p>
+        <p className="mt-0.5 text-xs font-medium uppercase tracking-wide text-zinc-400">
+          {plan.billingCycle}
+        </p>
+      </div>
 
       {isActive && (
-        <div className="mt-5 border-t border-zinc-100 pt-4">
+        <>
+          <div className="h-px bg-zinc-100" />
           <DeactivatePlanForm projectId={plan.projectId} planId={plan.id} />
-        </div>
+        </>
       )}
     </Card>
   );

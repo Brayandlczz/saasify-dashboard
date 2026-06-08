@@ -1,8 +1,12 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-import { createProject, rotateProjectApiKey} from "@/features/projects/projects.api";
+import {
+  createProject,
+  rotateProjectApiKey,
+} from "@/features/projects/projects.api";
 
 export async function createProjectAction(formData: FormData) {
   const name = String(formData.get("name") ?? "").trim();
@@ -12,15 +16,15 @@ export async function createProjectAction(formData: FormData) {
     throw new Error("Name and slug are required.");
   }
 
-  await createProject({
-    name,
-    slug,
-  });
+  await createProject({ name, slug });
 
   redirect("/dashboard");
 }
 
-export async function rotateProjectApiKeyAction(formData: FormData) {
+export async function rotateProjectApiKeyAction(
+  _state: { success: boolean } | null,
+  formData: FormData
+) {
   const projectId = String(formData.get("projectId") ?? "").trim();
 
   if (!projectId) {
@@ -29,6 +33,7 @@ export async function rotateProjectApiKeyAction(formData: FormData) {
 
   await rotateProjectApiKey(projectId);
 
-  redirect(`/projects/${projectId}`);
-}
+  revalidatePath(`/projects/${projectId}`);
 
+  return { success: true };
+}

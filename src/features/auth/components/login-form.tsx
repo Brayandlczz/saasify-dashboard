@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { FormError } from "@/components/feedback";
-import { Button, Input } from "@/components/ui";
+import { Button, Input, PasswordInput } from "@/components/ui";
 
 import { login } from "../auth.api";
 import { loginSchema, type LoginFormValues } from "../auth.schema";
@@ -69,8 +69,8 @@ export function LoginForm() {
             Password
           </label>
 
-          <Input
-            type="password"
+          <PasswordInput
+            placeholder="••••••••"
             {...register("password")}
           />
 
@@ -86,7 +86,7 @@ export function LoginForm() {
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="w-full"
+          className="w-full cursor-pointer"
         >
           {isSubmitting ? "Signing in..." : "Login"}
         </Button>

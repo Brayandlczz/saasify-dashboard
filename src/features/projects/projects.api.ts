@@ -16,7 +16,14 @@ export async function getProjectById(projectId: string): Promise<Project> {
 export async function createProject(
   payload: CreateProjectPayload
 ): Promise<Project> {
-  const response = await apiClient.post<Project>("/projects", payload);
+  const response = await apiClient.post<Project>("/projects", {
+    id: crypto.randomUUID(),
+    ...payload,
+    ownerId: "550e8400-e29b-41d4-a716-446655440000",
+    status: "active",
+    createdAt: new Date().toISOString(),
+    settings: {},
+  });
 
   return response.data;
 }

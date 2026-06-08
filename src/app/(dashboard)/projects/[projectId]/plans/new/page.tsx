@@ -1,4 +1,4 @@
-import { PageHeader } from "@/components/ui";
+import { BackButton, PageHeader } from "@/components/ui";
 import { CreatePlanForm } from "@/features/plans/components/create-plan-form";
 
 type NewPlanPageProps = {
@@ -11,9 +11,10 @@ export default async function NewPlanPage({ params }: NewPlanPageProps) {
   const { projectId } = await params;
 
   return (
-    <main className="px-6 py-8">
+    <main className="px-6 py-10">
       <section className="mx-auto max-w-2xl">
-        <div className="mb-8">
+        <BackButton className="mb-6" />
+        <div className="mb-6 text-center">
           <PageHeader
             eyebrow="Plans"
             title="Create plan"
