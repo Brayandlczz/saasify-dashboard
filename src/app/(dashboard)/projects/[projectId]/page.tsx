@@ -8,6 +8,8 @@ import { PlanCard } from "@/features/plans/components/plan-card";
 import { getPlansByProjectId } from "@/features/plans/plans.api";
 import { RotateApiKeyForm } from "@/features/projects/components/rotate-api-key-form";
 import { getProjectById } from "@/features/projects/projects.api";
+import { SubscriptionCard } from "@/features/suscriptions/components/subscription-card";
+import { getSubscriptionsByProjectId } from "@/features/suscriptions/subscriptions.api";
 
 type ProjectDetailPageProps = {
   params: Promise<{
@@ -23,12 +25,14 @@ export default async function ProjectDetailPage({
   let project!: Awaited<ReturnType<typeof getProjectById>>;
   let plans!: Awaited<ReturnType<typeof getPlansByProjectId>>;
   let customers!: Awaited<ReturnType<typeof getCustomersByProjectId>>;
+  let subscriptions!: Awaited<ReturnType<typeof getSubscriptionsByProjectId>>;
 
   try {
-    [project, plans, customers] = await Promise.all([
+    [project, plans, customers, subscriptions] = await Promise.all([
       getProjectById(projectId),
       getPlansByProjectId(projectId),
       getCustomersByProjectId(projectId),
+      getSubscriptionsByProjectId(projectId),
     ]);
   } catch {
     notFound();
@@ -134,6 +138,33 @@ export default async function ProjectDetailPage({
             <EmptyState
               title="No customers yet"
               description="Customers are created programmatically through the SaaSify API."
+            />
+          )}
+        </div>
+
+        <div className="mt-10">
+          <div className="mb-4">
+            <h2 className="text-xl font-semibold text-zinc-950">
+              Subscriptions
+            </h2>
+            <p className="mt-1 text-sm text-zinc-600">
+              Active and historical subscriptions created through the API.
+            </p>
+          </div>
+
+          {subscriptions.length > 0 ? (
+            <div className="grid gap-4 md:grid-cols-2">
+              {subscriptions.map((subscription) => (
+                <SubscriptionCard
+                  key={subscription.id}
+                  subscription={subscription}
+                />
+              ))}
+            </div>
+          ) : (
+            <EmptyState
+              title="No subscriptions yet"
+              description="Subscriptions are created and renewed through the SaaSify API."
             />
           )}
         </div>
