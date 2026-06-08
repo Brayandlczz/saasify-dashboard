@@ -1,0 +1,12 @@
+{
+  "/api/auth/register": "/users",
+  "/api/auth/login": "/users",
+  "/api/projects": "/projects",
+  "/api/projects/:id": "/projects/:id",
+  "/api/plans": "/plans",
+  "/api/plans?projectId=:projectId": "/plans?projectId=:projectId",
+  "/api/customers": "/customers",
+  "/api/customers?projectId=:projectId": "/customers?projectId=:projectId",
+  "/api/subscriptions": "/subscriptions",
+  "/api/subscriptions?projectId=:projectId": "/subscriptions?projectId=:projectId"
+}
