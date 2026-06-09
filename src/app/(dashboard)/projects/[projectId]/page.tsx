@@ -39,6 +39,18 @@ export default async function ProjectDetailPage({
     notFound();
   }
 
+  const customersMap = new Map(
+    customers.map((customer) => [customer.id, customer])
+  );
+
+  const plansMap = new Map(plans.map((plan) => [plan.id, plan]));
+
+  const subscriptionsView = subscriptions.map((subscription) => ({
+    ...subscription,
+    customer: customersMap.get(subscription.customerId),
+    plan: plansMap.get(subscription.planId),
+  }));
+
   return (
     <main className="px-6 py-10">
       <section className="mx-auto max-w-6xl">
@@ -152,15 +164,17 @@ export default async function ProjectDetailPage({
 
         <div className="mt-12 mb-10">
           <div className="mb-6">
-            <h2 className="text-lg font-semibold text-zinc-950">Subscriptions</h2>
+            <h2 className="text-lg font-semibold text-zinc-950">
+              Subscriptions
+            </h2>
             <p className="mt-0.5 text-sm text-zinc-500">
               Active and historical subscriptions created through the API.
             </p>
           </div>
 
-          {subscriptions.length > 0 ? (
+          {subscriptionsView.length > 0 ? (
             <div className="grid gap-4 md:grid-cols-2">
-              {subscriptions.map((subscription) => (
+              {subscriptionsView.map((subscription) => (
                 <SubscriptionCard
                   key={subscription.id}
                   subscription={subscription}
