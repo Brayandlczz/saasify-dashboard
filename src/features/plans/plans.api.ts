@@ -29,3 +29,12 @@ export async function deactivatePlan(planId: string): Promise<Plan> {
 
   return response.data;
 }
+
+export async function activatePlan(planId: string): Promise<Plan> {
+  const response = await apiClient.patch<Plan>(`/plans/${planId}`, {
+    isActive: true,
+    isPublic: true,
+  });
+
+  return response.data;
+}
