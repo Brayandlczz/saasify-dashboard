@@ -1,3 +1,4 @@
+import { Input } from "@/components/ui";
 import { Button } from "@/components/ui/button";
 import { createProjectAction } from "@/features/projects/actions";
 
@@ -9,40 +10,37 @@ export function CreateProjectForm() {
     >
       <div className="space-y-5">
         <div>
-          <label
-            htmlFor="name"
-            className="text-sm font-medium text-zinc-950"
-          >
+          <label htmlFor="name" className="text-sm font-medium text-zinc-950">
             Project name
           </label>
-          <input
+          <Input
             id="name"
             name="name"
             type="text"
             placeholder="E-Commerce Platform"
-            className="mt-2 w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-zinc-950"
             required
           />
         </div>
 
         <div>
-          <label
-            htmlFor="slug"
-            className="text-sm font-medium text-zinc-950"
-          >
+          <label htmlFor="slug" className="text-sm font-medium text-zinc-950">
             Slug
           </label>
-          <input
+          <Input
             id="slug"
             name="slug"
             type="text"
             placeholder="ecommerce-platform"
-            className="mt-2 w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-zinc-950"
             required
           />
+          <p className="mt-1.5 text-xs text-zinc-400">
+            Used as a unique identifier. Only lowercase letters, numbers, and hyphens.
+          </p>
         </div>
 
-        <Button type="submit">
+        <div className="h-px bg-zinc-100" />
+
+        <Button type="submit" className="w-full cursor-pointer">
           Create project
         </Button>
       </div>

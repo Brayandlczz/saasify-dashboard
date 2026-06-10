@@ -12,7 +12,11 @@ export async function getPlansByProjectId(projectId: string): Promise<Plan[]> {
 }
 
 export async function createPlan(payload: CreatePlanPayload): Promise<Plan> {
-  const response = await apiClient.post<Plan>("/plans", payload);
+  const response = await apiClient.post<Plan>("/plans", {
+    id: crypto.randomUUID(),
+    ...payload,
+    createdAt: new Date().toISOString(),
+  });
 
   return response.data;
 }
@@ -21,6 +25,15 @@ export async function deactivatePlan(planId: string): Promise<Plan> {
   const response = await apiClient.patch<Plan>(`/plans/${planId}`, {
     isActive: false,
     isPublic: false,
+  });
+
+  return response.data;
+}
+
+export async function activatePlan(planId: string): Promise<Plan> {
+  const response = await apiClient.patch<Plan>(`/plans/${planId}`, {
+    isActive: true,
+    isPublic: true,
   });
 
   return response.data;

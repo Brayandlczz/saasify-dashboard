@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 import { FormError } from "@/components/feedback";
-import { Button, Input } from "@/components/ui";
+import { Button, Input, PasswordInput } from "@/components/ui";
 
 import { register as registerUser } from "../auth.api";
 import { registerSchema, type RegisterFormValues } from "../auth.schema";
@@ -87,8 +87,8 @@ export function RegisterForm() {
             Password
           </label>
 
-          <Input
-            type="password"
+          <PasswordInput
+            placeholder="••••••••"
             {...register("password")}
           />
 
@@ -104,11 +104,9 @@ export function RegisterForm() {
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="w-full"
+          className="w-full cursor-pointer"
         >
-          {isSubmitting
-            ? "Creating account..."
-            : "Create account"}
+          {isSubmitting ? "Creating account..." : "Create account"}
         </Button>
       </div>
     </form>

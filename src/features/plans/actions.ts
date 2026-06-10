@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 
-import { createPlan, deactivatePlan } from "@/features/plans/plans.api";
+import { createPlan, deactivatePlan, activatePlan } from "@/features/plans/plans.api";
 import type { BillingCycle } from "@/features/plans/types";
 
 export async function createPlanAction(formData: FormData) {
@@ -42,6 +42,21 @@ export async function deactivatePlanAction(formData: FormData) {
   }
 
   await deactivatePlan(planId);
+
+  redirect(`/projects/${projectId}`);
+}
+
+export async function activatePlanAction(formData: FormData) {
+  const projectId = String(formData.get("projectId") ?? "").trim();
+  const planId = String(formData.get("planId") ?? "").trim();
+
+  if (!projectId || !planId) {
+    throw new Error(
+      "Project ID and Plan ID are required."
+    );
+  }
+
+  await activatePlan(planId);
 
   redirect(`/projects/${projectId}`);
 }

@@ -7,20 +7,26 @@ import type {
   User,
 } from "./types";
 
+type UserRecord = User & {
+  password: string;
+};
+
 export async function login(
   payload: LoginPayload
 ): Promise<AuthResponse> {
-  const response = await apiClient.get<User[]>("/users");
+  const response = await apiClient.get<UserRecord[]>("/users");
 
-  const user = response.data.find(
-    (candidate: { email: string; password: string }) =>
+  const userRecord = response.data.find(
+    (candidate) =>
       candidate.email === payload.email &&
       candidate.password === payload.password
   );
 
-  if (!user) {
+  if (!userRecord) {
     throw new Error("Invalid credentials");
   }
+
+  const { password: _password, ...user } = userRecord;
 
   return {
     user,
@@ -32,10 +38,20 @@ export async function login(
 export async function register(
   payload: RegisterPayload
 ): Promise<AuthResponse> {
-  const response = await apiClient.post("/users", payload);
+  const newUser: UserRecord = {
+    id: crypto.randomUUID(),
+    name: payload.name,
+    email: payload.email,
+    password: payload.password,
+    createdAt: new Date().toISOString(),
+  };
+
+  const response = await apiClient.post<UserRecord>("/users", newUser);
+
+  const { password: _password, ...user } = response.data;
 
   return {
-    user: response.data,
+    user,
     accessToken: crypto.randomUUID(),
     refreshToken: crypto.randomUUID(),
   };

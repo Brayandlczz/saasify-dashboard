@@ -1,3 +1,6 @@
+"use client";
+
+import { useActionState } from "react";
 import { Button } from "@/components/ui/button";
 import { rotateProjectApiKeyAction } from "@/features/projects/actions";
 
@@ -6,15 +9,21 @@ type RotateApiKeyFormProps = {
 };
 
 export function RotateApiKeyForm({ projectId }: RotateApiKeyFormProps) {
+  const [state, formAction, isPending] = useActionState(
+    rotateProjectApiKeyAction,
+    null
+  );
+
   return (
-    <form action={rotateProjectApiKeyAction}>
+    <form action={formAction}>
       <input type="hidden" name="projectId" value={projectId} />
 
       <Button
         type="submit"
-        variant="secondary"
+        variant={state?.success ? "success" : "secondary"}
+        disabled={isPending}
       >
-        Rotate API key
+        {isPending ? "Rotating..." : state?.success ? "Rotated!" : "Rotate API key"}
       </Button>
     </form>
   );
